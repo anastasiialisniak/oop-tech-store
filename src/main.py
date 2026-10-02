@@ -169,3 +169,20 @@ try:
     test_mouse.reduce_stock(5)
 except ValueError as error:
     print("Error:", error)
+
+
+from src.services.repository import Repository
+
+product_repository = Repository[Product]()
+
+product_repository.add(keyboard)
+product_repository.add(mouse)
+
+print("Products in repository:", product_repository.count())
+
+
+customer_repository = Repository[Customer]()
+
+customer_repository.add(customer)
+
+print("Customers in repository:", customer_repository.count())
