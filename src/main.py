@@ -90,3 +90,26 @@ deliveries = [
 for delivery in deliveries:
     print(delivery.calculate_cost())
     print(delivery.estimate_delivery_time())
+
+from src.models.cart import Cart
+
+cart = Cart()
+
+cart.add_product(keyboard, 2)
+cart.add_product(mouse, 1)
+
+print("Cart total:", cart.calculate_total())
+print("Items in cart:", cart.get_item_count())
+
+cart.remove_product(mouse)
+
+print("After removing mouse:")
+print("Cart total:", cart.calculate_total())
+print("Items in cart:", cart.get_item_count())
+
+
+cart.clear()
+
+print("After clearing cart:")
+print("Cart total:", cart.calculate_total())
+print("Is cart empty:", cart.is_empty())
