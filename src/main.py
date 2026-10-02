@@ -67,3 +67,26 @@ users = [
 
 for user in users:
     print(user.get_role())
+
+from src.models.payment import CardPayment, CashPayment
+
+
+payments = [
+    CardPayment(2500, "1234567890123456"),
+    CashPayment(1500)
+]
+
+for payment in payments:
+    print(payment.process_payment())
+
+from src.models.delivery import CourierDelivery, PickupDelivery
+
+
+deliveries = [
+    CourierDelivery("Kyiv, Khreshchatyk 1", 5),
+    PickupDelivery("Kyiv, Khreshchatyk 10")
+]
+
+for delivery in deliveries:
+    print(delivery.calculate_cost())
+    print(delivery.estimate_delivery_time())
