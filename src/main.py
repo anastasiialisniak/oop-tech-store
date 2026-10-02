@@ -1,16 +1,16 @@
-from src.models.keyboard import Keyboard
+from src.models.mouse import Mouse
 
 
-keyboard = Keyboard(
-    product_id=1,
-    name="Mechanical Keyboard",
+mouse = Mouse(
+    product_id=2,
+    name="Gaming Mouse",
     brand="Logitech",
-    price=2500,
-    stock_quantity=10,
-    switch_type="Red",
-    layout="US"
+    price=1500,
+    stock_quantity=20,
+    dpi=12000,
+    connection_type="Wireless"
 )
 
-print(keyboard.get_description())
-print("Available:", keyboard.is_available())
-print("Price:", keyboard.calculate_final_price())
+print(mouse.get_description())
+print("Available:", mouse.is_available())
+print("Price:", mouse.calculate_final_price())
