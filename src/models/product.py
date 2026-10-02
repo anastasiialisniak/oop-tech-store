@@ -25,6 +25,9 @@ class Product(ABC):
     def is_available(self) -> bool:
         return self.__stock_quantity > 0
 
+    def get_stock_quantity(self) -> int:
+        return self.__stock_quantity
+
     def reduce_stock(self, quantity: int) -> None:
         if quantity <= 0:
             raise ValueError("Quantity must be positive.")

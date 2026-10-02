@@ -35,6 +35,11 @@ class Order:
         self.__status = "Created"
 
     def add_item(self, product: Product, quantity: int) -> None:
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive.")
+
+        product.reduce_stock(quantity)
+
         item = OrderItem(product, quantity)
         self.__items.append(item)
 

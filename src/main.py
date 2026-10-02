@@ -126,9 +126,11 @@ order = Order(
     )
 )
 
+print("Keyboard stock before order:", keyboard.get_stock_quantity())
 order.add_item(keyboard, 2)
 order.add_item(mouse, 1)
-
+print("Keyboard stock after order:", keyboard.get_stock_quantity())
+      
 print("Order total:", order.calculate_total())
 print("Order status:", order.get_status())
 
@@ -153,3 +155,17 @@ customer.add_order(order)
 
 print("Order history:", len(customer.get_order_history()))
 print("Customer orders:", customer.get_order_count())
+
+test_mouse = Mouse(
+    product_id=10,
+    name="Test Mouse",
+    brand="Test",
+    price=1000,
+    stock_quantity=2,
+    dpi=8000,
+    connection_type="Wired"
+)
+try:
+    test_mouse.reduce_stock(5)
+except ValueError as error:
+    print("Error:", error)
