@@ -113,3 +113,26 @@ cart.clear()
 print("After clearing cart:")
 print("Cart total:", cart.calculate_total())
 print("Is cart empty:", cart.is_empty())
+
+
+from src.models.order import Order
+
+order = Order(
+    order_id=1,
+    payment=CardPayment(6500, "1234567890123456"),
+    delivery=CourierDelivery(
+        "Kyiv, Khreshchatyk 1",
+        5
+    )
+)
+
+order.add_item(keyboard, 2)
+order.add_item(mouse, 1)
+
+print("Order total:", order.calculate_total())
+print("Order status:", order.get_status())
+
+order.change_status("Paid")
+
+print("New order status:", order.get_status())
+print("Can cancel:", order.can_be_cancelled())
