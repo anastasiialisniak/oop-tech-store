@@ -56,3 +56,14 @@ products: list[Product] = [
 
 for product in products:
     print(product.get_description())
+
+
+from src.models.user import Customer, Admin
+
+users = [
+    Customer(1, "Anna", "anna@gmail.com"),
+    Admin(2, "Alex", "alex@gmail.com")
+]
+
+for user in users:
+    print(user.get_role())
