@@ -136,3 +136,20 @@ order.change_status("Paid")
 
 print("New order status:", order.get_status())
 print("Can cancel:", order.can_be_cancelled())
+
+customer = Customer(
+    1,
+    "Anna",
+    "anna@gmail.com"
+)
+
+customer.add_to_wishlist(keyboard)
+customer.add_to_wishlist(headphones)
+
+print("Wishlist size:", len(customer.get_wishlist()))
+
+
+customer.add_order(order)
+
+print("Order history:", len(customer.get_order_history()))
+print("Customer orders:", customer.get_order_count())

@@ -38,13 +38,31 @@ class Customer(User):
         email: str
     ):
         super().__init__(user_id, name, email)
-        self.__order_count = 0
 
-    def add_order(self) -> None:
+        self.__order_count = 0
+        self.__orders = []
+        self.__wishlist = []
+
+    def add_order(self, order) -> None:
+        self.__orders.append(order)
         self.__order_count += 1
+
+    def add_to_wishlist(self, product) -> None:
+        if product not in self.__wishlist:
+            self.__wishlist.append(product)
+
+    def remove_from_wishlist(self, product) -> None:
+        if product in self.__wishlist:
+            self.__wishlist.remove(product)
 
     def get_order_count(self) -> int:
         return self.__order_count
+
+    def get_order_history(self) -> list:
+        return self.__orders.copy()
+
+    def get_wishlist(self) -> list:
+        return self.__wishlist.copy()
 
     def get_role(self) -> str:
         return "Customer"
