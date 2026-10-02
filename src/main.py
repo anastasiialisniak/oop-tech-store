@@ -1,16 +1,16 @@
-from src.models.mouse import Mouse
+from src.models.webcam import Webcam
 
 
-mouse = Mouse(
-    product_id=2,
-    name="Gaming Mouse",
+webcam = Webcam(
+    product_id=4,
+    name="Full HD Webcam",
     brand="Logitech",
-    price=1500,
-    stock_quantity=20,
-    dpi=12000,
-    connection_type="Wireless"
+    price=2200,
+    stock_quantity=8,
+    resolution="1920x1080",
+    frame_rate=60
 )
 
-print(mouse.get_description())
-print("Available:", mouse.is_available())
-print("Price:", mouse.calculate_final_price())
+print(webcam.get_description())
+print("Available:", webcam.is_available())
+print("Price:", webcam.calculate_final_price())
