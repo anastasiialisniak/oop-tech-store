@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexora — Smart choices. Better technology.</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a class="brand" href="#" data-page="catalog">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path
+              d="M9 35V13L24 35V13L39 35V13"
+              stroke="currentColor"
+              stroke-width="7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>Nexora</strong>
+          <small>Smart choices. Better technology.</small>
+        </span>
+      </a>
+
+      <nav class="navigation" aria-label="Головна навігація">
+        <button data-page="catalog">
+          <span class="nav-icon">⌂</span> Каталог
+        </button>
+        <button data-page="cart">
+          <span class="nav-icon">🛒</span>
+          Кошик (<span id="cart-count">0</span>)
+        </button>
+        <button data-page="checkout">
+          <span class="nav-icon">▤</span> Оформлення
+        </button>
+        <button data-page="orders">
+          <span class="nav-icon">◇</span> Замовлення
+        </button>
+        <button data-page="admin">
+          <span class="nav-icon">⚙</span> Керування товарами
+        </button>
+        <button data-page="admin-orders">
+          <span class="nav-icon">📦</span>
+          Керування замовленнями
+        </button>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">ТЕХНОЛОГІЇ ДЛЯ ТВОГО ЖИТТЯ</p>
+        <h2>Сучасна електроніка<br />для роботи, навчання та розваг</h2>
+        <p class="hero-description">
+          Клавіатури, мишки, навушники, вебкамери та багато іншого
+        </p>
+        <button id="browse-products">Переглянути товари →</button>
+      </div>
+
+      <div class="hero-image">
+        <img
+          src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1200&q=85"
+          alt="Сучасна електроніка"
+        />
+      </div>
+    </section>
+
+    <main>
+      <section id="catalog" class="page">
+        <h2>Каталог товарів</h2>
+
+        <div class="catalog-layout">
+          <aside class="catalog-sidebar">
+            <h3>Категорії</h3>
+
+            <button
+              type="button"
+              class="category-button active"
+              data-category="all"
+            >
+              Усі категорії
+            </button>
+            <button
+              type="button"
+              class="category-button"
+              data-category="keyboard"
+            >
+              Клавіатури
+            </button>
+            <button type="button" class="category-button" data-category="mouse">
+              Мишки
+            </button>
+            <button
+              type="button"
+              class="category-button"
+              data-category="headphones"
+            >
+              Навушники
+            </button>
+            <button
+              type="button"
+              class="category-button"
+              data-category="webcam"
+            >
+              Вебкамери
+            </button>
+
+            <div class="sidebar-divider"></div>
+
+            <h3>Ціна</h3>
+            <input
+              id="price-filter"
+              type="range"
+              min="0"
+              max="10000"
+              step="100"
+              value="10000"
+            />
+            <div class="price-range-labels">
+              <span>0 грн</span>
+              <span id="price-filter-value">10 000 грн</span>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <h3>Виробник</h3>
+            <label class="brand-option">
+              <input type="checkbox" name="brand-filter" value="Logitech" />
+              Logitech
+            </label>
+            <label class="brand-option">
+              <input type="checkbox" name="brand-filter" value="Razer" />
+              Razer
+            </label>
+            <label class="brand-option">
+              <input type="checkbox" name="brand-filter" value="HyperX" />
+              HyperX
+            </label>
+            <label class="brand-option">
+              <input type="checkbox" name="brand-filter" value="Sony" />
+              Sony
+            </label>
+            <label class="brand-option">
+              <input type="checkbox" name="brand-filter" value="AverMedia" />
+              AverMedia
+            </label>
+          </aside>
+
+          <div class="catalog-main">
+            <div class="catalog-toolbar">
+              <input
+                id="search"
+                type="search"
+                placeholder="⌕  Пошук товару..."
+              />
+
+              <select id="category-filter" class="hidden">
+                <option value="all">Усі категорії</option>
+                <option value="keyboard">Клавіатури</option>
+                <option value="mouse">Мишки</option>
+                <option value="headphones">Навушники</option>
+                <option value="webcam">Вебкамери</option>
+              </select>
+
+              <select id="sort">
+                <option value="name">За назвою (А-Я)</option>
+                <option value="price-asc">Спочатку дешевші</option>
+                <option value="price-desc">Спочатку дорожчі</option>
+              </select>
+
+              <div class="view-switcher">
+                <button
+                  type="button"
+                  id="grid-view"
+                  class="view-button active"
+                  aria-label="Вигляд сіткою"
+                >
+                  ▦
+                </button>
+                <button
+                  type="button"
+                  id="list-view"
+                  class="view-button"
+                  aria-label="Вигляд списком"
+                >
+                  ☰
+                </button>
+              </div>
+            </div>
+
+            <div id="product-list" class="product-grid"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cart" class="page hidden">
+        <h2>Мій кошик</h2>
+        <div id="cart-items"></div>
+        <h3>Загальна сума: <span id="cart-total">0</span> грн</h3>
+        <button id="clear-cart">Очистити кошик</button>
+        <button data-page="checkout">Перейти до оформлення</button>
+      </section>
+
+      <section id="checkout" class="page hidden">
+        <h2>Оформлення замовлення</h2>
+
+        <form id="checkout-form">
+          <label for="customer-name">Ім'я покупця</label>
+          <input id="customer-name" required />
+
+          <label for="customer-email">Електронна пошта</label>
+          <input id="customer-email" type="email" required />
+
+          <label for="delivery">Спосіб доставки</label>
+          <select id="delivery">
+            <option value="pickup">Самовивіз</option>
+            <option value="nova-poshta">Нова пошта</option>
+            <option value="ukrposhta">Укрпошта</option>
+            <option value="courier">Кур'єрська доставка</option>
+          </select>
+
+          <label for="payment">Спосіб оплати</label>
+          <select id="payment">
+            <option value="card">Картка</option>
+            <option value="cash">Готівка</option>
+          </select>
+
+          <button type="submit">Підтвердити замовлення</button>
+        </form>
+
+        <p id="checkout-message" role="status"></p>
+      </section>
+
+      <section id="orders" class="page hidden">
+        <h2>Мої замовлення</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Покупець</th>
+                <th>Сума</th>
+                <th>Дата</th>
+                <th>Доставка</th>
+                <th>Статус</th>
+              </tr>
+            </thead>
+
+            <tbody id="orders-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="admin" class="page hidden">
+        <h2>Керування товарами</h2>
+
+        <form id="product-form">
+          <label for="product-name">Назва товару</label>
+          <input id="product-name" required />
+
+          <label for="product-category">Категорія</label>
+          <select id="product-category">
+            <option value="keyboard">Клавіатура</option>
+            <option value="mouse">Мишка</option>
+            <option value="headphones">Навушники</option>
+            <option value="webcam">Вебкамера</option>
+          </select>
+
+          <label for="product-brand">Виробник</label>
+          <select id="product-brand" required>
+            <option value="Logitech">Logitech</option>
+            <option value="Razer">Razer</option>
+            <option value="HyperX">HyperX</option>
+            <option value="Sony">Sony</option>
+            <option value="AverMedia">AverMedia</option>
+            <option value="Nexora">Nexora</option>
+          </select>
+
+          <label for="product-price">Ціна (грн)</label>
+          <input
+            id="product-price"
+            type="number"
+            min="0.01"
+            step="0.01"
+            required
+          />
+
+          <label for="product-stock">Кількість на складі</label>
+          <input id="product-stock" type="number" min="0" step="1" required />
+
+          <button type="submit">Додати товар</button>
+        </form>
+
+        <h3>Товари в магазині</h3>
+        <div id="admin-product-list"></div>
+      </section>
+
+      <section id="admin-orders" class="page hidden">
+        <h2>Керування замовленнями</h2>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Покупець</th>
+                <th>Сума</th>
+                <th>Дата</th>
+                <th>Доставка</th>
+                <th>Статус</th>
+                <th>Дія</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Nexora · Smart choices. Better technology.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
