@@ -16,11 +16,15 @@ class User(ABC):
         self.__name = name
         self.__email = email
 
+   
     def change_email(self, new_email: str) -> None:
         if "@" not in new_email:
             raise ValueError("Invalid email address.")
-
         self.__email = new_email
+
+    def get_user_id(self) -> int:
+        return self.__user_id
+
 
     def get_email_domain(self) -> str:
         return self.__email.split("@")[1]
