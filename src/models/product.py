@@ -22,6 +22,18 @@ class Product(ABC):
         self.__price = price
         self.__stock_quantity = stock_quantity
 
+    def get_product_id(self) -> int:
+        return self.__product_id
+
+    def get_name(self) -> str:
+        return self.__name
+
+    def get_brand(self) -> str:
+        return self.__brand
+
+    def get_price(self) -> float:
+        return self.__price
+
     def is_available(self) -> bool:
         return self.__stock_quantity > 0
 

@@ -2,7 +2,8 @@ import unittest
 
 from src.models.keyboard import Keyboard
 from src.models.mouse import Mouse
-from src.models.cart import Cart
+from src.models.cart import Cart, CartItem
+from src.models.user import Customer, Admin
 from src.models.payment import CardPayment
 from src.models.delivery import PickupDelivery
 from src.models.order import Order
@@ -148,6 +149,73 @@ class TestOrder(unittest.TestCase):
             order.get_status(),
             "Paid"
         )
+
+
+class TestGettersAndEncapsulation(unittest.TestCase):
+
+    def setUp(self):
+        self.keyboard = Keyboard(
+            product_id=1,
+            name="Mechanical Keyboard",
+            brand="Logitech",
+            price=2500,
+            stock_quantity=10,
+            switch_type="Red",
+            layout="US"
+        )
+        self.mouse = Mouse(
+            product_id=2,
+            name="Gaming Mouse",
+            brand="Logitech",
+            price=1500,
+            stock_quantity=20,
+            dpi=12000,
+            connection_type="Wireless"
+        )
+
+    def test_product_getters(self):
+        self.assertEqual(self.keyboard.get_product_id(), 1)
+        self.assertEqual(self.keyboard.get_name(), "Mechanical Keyboard")
+        self.assertEqual(self.keyboard.get_brand(), "Logitech")
+        self.assertEqual(self.keyboard.get_price(), 2500)
+
+    def test_cart_item_getters(self):
+        item = CartItem(self.keyboard, 3)
+
+        self.assertIs(item.get_product(), self.keyboard)
+        self.assertEqual(item.get_quantity(), 3)
+
+    def test_cart_remove_product_uses_public_getter(self):
+        cart = Cart()
+        cart.add_product(self.keyboard, 1)
+        cart.add_product(self.mouse, 1)
+
+        cart.remove_product(self.keyboard)
+
+        self.assertEqual(cart.get_item_count(), 1)
+        self.assertEqual(cart.calculate_total(), 1500)
+
+    def test_cart_remove_missing_product_raises(self):
+        cart = Cart()
+        cart.add_product(self.keyboard, 1)
+
+        with self.assertRaises(ValueError):
+            cart.remove_product(self.mouse)
+
+    def test_user_getters(self):
+        customer = Customer(1, "Anna", "anna@gmail.com")
+        admin = Admin(2, "Alex", "alex@gmail.com")
+
+        self.assertEqual(customer.get_name(), "Anna")
+        self.assertEqual(customer.get_email(), "anna@gmail.com")
+        self.assertEqual(admin.get_name(), "Alex")
+        self.assertEqual(admin.get_email(), "alex@gmail.com")
+
+    def test_user_email_getter_reflects_change(self):
+        customer = Customer(1, "Anna", "anna@gmail.com")
+        customer.change_email("new@gmail.com")
+
+        self.assertEqual(customer.get_email(), "new@gmail.com")
 
 
 if __name__ == "__main__":

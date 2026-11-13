@@ -6,6 +6,7 @@
     <title>Nexora — Smart choices. Better technology.</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
     <header class="header">
       <a class="brand" href="#" data-page="catalog">
@@ -20,6 +21,7 @@
             />
           </svg>
         </span>
+
         <span class="brand-text">
           <strong>Nexora</strong>
           <small>Smart choices. Better technology.</small>
@@ -27,25 +29,40 @@
       </a>
 
       <nav class="navigation" aria-label="Головна навігація">
-        <button data-page="catalog">
-          <span class="nav-icon">⌂</span> Каталог
+        <button type="button" data-page="catalog">Каталог</button>
+        <button type="button" data-page="cart">Кошик</button>
+        <button type="button" data-page="checkout">Оформлення</button>
+        <button type="button" data-page="orders">Замовлення</button>
+        <button type="button" data-page="admin" class="hidden" hidden>
+          Керування товарами
         </button>
-        <button data-page="cart">
-          <span class="nav-icon">🛒</span>
-          Кошик (<span id="cart-count">0</span>)
-        </button>
-        <button data-page="checkout">
-          <span class="nav-icon">▤</span> Оформлення
-        </button>
-        <button data-page="orders">
-          <span class="nav-icon">◇</span> Замовлення
-        </button>
-        <button data-page="admin">
-          <span class="nav-icon">⚙</span> Керування товарами
-        </button>
-        <button data-page="admin-orders">
-          <span class="nav-icon">📦</span>
+        <button type="button" data-page="admin-orders" class="hidden" hidden>
           Керування замовленнями
+        </button>
+
+        <button
+          type="button"
+          id="account-button"
+          class="account-button"
+          data-page="account"
+          aria-label="Особистий кабінет"
+          title="Особистий кабінет"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="21"
+            height="21"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="8" r="4" />
+            <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
+          </svg>
+          <span>Кабінет</span>
         </button>
       </nav>
     </header>
@@ -69,6 +86,7 @@
     </section>
 
     <main>
+      <!-- CATALOG -->
       <section id="catalog" class="page">
         <h2>Каталог товарів</h2>
 
@@ -83,6 +101,7 @@
             >
               Усі категорії
             </button>
+
             <button
               type="button"
               class="category-button"
@@ -90,9 +109,11 @@
             >
               Клавіатури
             </button>
+
             <button type="button" class="category-button" data-category="mouse">
               Мишки
             </button>
+
             <button
               type="button"
               class="category-button"
@@ -100,6 +121,7 @@
             >
               Навушники
             </button>
+
             <button
               type="button"
               class="category-button"
@@ -111,6 +133,7 @@
             <div class="sidebar-divider"></div>
 
             <h3>Ціна</h3>
+
             <input
               id="price-filter"
               type="range"
@@ -119,6 +142,7 @@
               step="100"
               value="10000"
             />
+
             <div class="price-range-labels">
               <span>0 грн</span>
               <span id="price-filter-value">10 000 грн</span>
@@ -127,22 +151,27 @@
             <div class="sidebar-divider"></div>
 
             <h3>Виробник</h3>
+
             <label class="brand-option">
               <input type="checkbox" name="brand-filter" value="Logitech" />
               Logitech
             </label>
+
             <label class="brand-option">
               <input type="checkbox" name="brand-filter" value="Razer" />
               Razer
             </label>
+
             <label class="brand-option">
               <input type="checkbox" name="brand-filter" value="HyperX" />
               HyperX
             </label>
+
             <label class="brand-option">
               <input type="checkbox" name="brand-filter" value="Sony" />
               Sony
             </label>
+
             <label class="brand-option">
               <input type="checkbox" name="brand-filter" value="AverMedia" />
               AverMedia
@@ -180,6 +209,7 @@
                 >
                   ▦
                 </button>
+
                 <button
                   type="button"
                   id="list-view"
@@ -196,14 +226,22 @@
         </div>
       </section>
 
+      <!-- CART -->
       <section id="cart" class="page hidden">
         <h2>Мій кошик</h2>
+
         <div id="cart-items"></div>
+
         <h3>Загальна сума: <span id="cart-total">0</span> грн</h3>
+
         <button id="clear-cart">Очистити кошик</button>
-        <button data-page="checkout">Перейти до оформлення</button>
+
+        <button type="button" data-page="checkout">
+          Перейти до оформлення
+        </button>
       </section>
 
+      <!-- CHECKOUT -->
       <section id="checkout" class="page hidden">
         <h2>Оформлення замовлення</h2>
 
@@ -222,26 +260,44 @@
             <option value="courier">Кур'єрська доставка</option>
           </select>
 
+          <div id="delivery-address-group" class="hidden">
+            <label for="delivery-address">Адреса доставки або відділення</label>
+            <input
+              id="delivery-address"
+              type="text"
+              placeholder="Вкажіть місто, вулицю або номер відділення"
+            />
+          </div>
+
           <label for="payment">Спосіб оплати</label>
           <select id="payment">
             <option value="card">Картка</option>
             <option value="cash">Готівка</option>
           </select>
 
-          <button type="submit">Підтвердити замовлення</button>
+          <div id="checkout-summary" class="checkout-summary">
+            <p>Сума товарів: <strong id="checkout-items-total">0 грн</strong></p>
+            <p>Вартість доставки: <strong id="checkout-delivery-cost">0 грн</strong></p>
+            <p>Разом до сплати: <strong id="checkout-total-amount">0 грн</strong></p>
+          </div>
+
+          <button type="submit" id="checkout-submit">Підтвердити замовлення</button>
         </form>
 
         <p id="checkout-message" role="status"></p>
       </section>
 
+      <!-- ORDERS -->
       <section id="orders" class="page hidden">
         <h2>Мої замовлення</h2>
+
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>№</th>
                 <th>Покупець</th>
+                <th>Товари</th>
                 <th>Сума</th>
                 <th>Дата</th>
                 <th>Доставка</th>
@@ -254,68 +310,307 @@
         </div>
       </section>
 
+      <!-- ACCOUNT -->
+      <section id="account" class="page hidden">
+        <div class="account-container">
+          <div class="account-heading">
+            <span class="account-icon">
+              <svg
+                viewBox="0 0 24 24"
+                width="32"
+                height="32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="8" r="4" />
+                <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
+              </svg>
+            </span>
+
+            <h2>Особистий кабінет</h2>
+
+            <p>Увійдіть або створіть акаунт Nexora</p>
+          </div>
+
+          <div class="auth-tabs">
+            <button type="button" class="auth-tab active" data-auth-tab="login">
+              Вхід
+            </button>
+
+            <button type="button" class="auth-tab" data-auth-tab="register">
+              Реєстрація
+            </button>
+          </div>
+
+          <!-- LOGIN FORM -->
+          <form id="login-form" class="auth-form">
+            <h3>Раді вас бачити знову!</h3>
+
+            <label for="login-email">Електронна пошта</label>
+            <input
+              id="login-email"
+              type="email"
+              placeholder="name@example.com"
+              autocomplete="email"
+              required
+            />
+
+            <label for="login-password">Пароль</label>
+            <input
+              id="login-password"
+              type="password"
+              placeholder="Введіть пароль"
+              autocomplete="current-password"
+              required
+            />
+
+            <button type="submit">Увійти</button>
+          </form>
+
+          <!-- REGISTER FORM -->
+          <form id="register-form" class="auth-form hidden">
+            <h3>Створіть акаунт Nexora</h3>
+
+            <label for="register-name">Ваше ім'я</label>
+            <input
+              id="register-name"
+              type="text"
+              placeholder="Ім'я"
+              autocomplete="name"
+              required
+            />
+
+            <label for="register-email">Електронна пошта</label>
+            <input
+              id="register-email"
+              type="email"
+              placeholder="name@example.com"
+              autocomplete="email"
+              required
+            />
+
+            <label for="register-password">Пароль</label>
+            <input
+              id="register-password"
+              type="password"
+              placeholder="Мінімум 8 символів"
+              minlength="8"
+              autocomplete="new-password"
+              required
+            />
+
+            <button type="submit">Створити акаунт</button>
+          </form>
+
+          <p id="auth-message" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <!-- ADMIN PRODUCTS -->
       <section id="admin" class="page hidden">
         <h2>Керування товарами</h2>
 
-        <form id="product-form">
-          <label for="product-name">Назва товару</label>
-          <input id="product-name" required />
+        <div id="admin-access-notice" class="admin-access-notice"></div>
 
-          <label for="product-category">Категорія</label>
-          <select id="product-category">
-            <option value="keyboard">Клавіатура</option>
-            <option value="mouse">Мишка</option>
-            <option value="headphones">Навушники</option>
-            <option value="webcam">Вебкамера</option>
-          </select>
+        <div id="admin-content" class="hidden">
+          <form id="product-form">
+            <h3 id="product-form-title">Додати новий товар</h3>
 
-          <label for="product-brand">Виробник</label>
-          <select id="product-brand" required>
-            <option value="Logitech">Logitech</option>
-            <option value="Razer">Razer</option>
-            <option value="HyperX">HyperX</option>
-            <option value="Sony">Sony</option>
-            <option value="AverMedia">AverMedia</option>
-            <option value="Nexora">Nexora</option>
-          </select>
+            <label for="product-name">Назва товару</label>
+            <input id="product-name" required />
 
-          <label for="product-price">Ціна (грн)</label>
-          <input
-            id="product-price"
-            type="number"
-            min="0.01"
-            step="0.01"
-            required
-          />
+            <label for="product-category">Категорія</label>
+            <select id="product-category">
+              <option value="keyboard">Клавіатура</option>
+              <option value="mouse">Мишка</option>
+              <option value="headphones">Навушники</option>
+              <option value="webcam">Вебкамера</option>
+            </select>
 
-          <label for="product-stock">Кількість на складі</label>
-          <input id="product-stock" type="number" min="0" step="1" required />
+            <label for="product-brand">Виробник</label>
+            <select id="product-brand" required>
+              <option value="Logitech">Logitech</option>
+              <option value="Razer">Razer</option>
+              <option value="HyperX">HyperX</option>
+              <option value="Sony">Sony</option>
+              <option value="AverMedia">AverMedia</option>
+              <option value="SteelSeries">SteelSeries</option>
+              <option value="Keychron">Keychron</option>
+              <option value="Nexora">Nexora</option>
+            </select>
 
-          <button type="submit">Додати товар</button>
-        </form>
+            <label for="product-price">Ціна (грн)</label>
+            <input
+              id="product-price"
+              type="number"
+              min="0.01"
+              step="0.01"
+              required
+            />
 
-        <h3>Товари в магазині</h3>
-        <div id="admin-product-list"></div>
+            <label for="product-stock">Кількість на складі</label>
+            <input id="product-stock" type="number" min="0" step="1" required />
+
+            <label for="product-image">Зображення (URL або шлях)</label>
+            <input
+              id="product-image"
+              type="text"
+              placeholder="Наприклад: images/mechanical-keyboard.jpg.jpg"
+            />
+
+            <label for="product-description">Опис товару</label>
+            <textarea
+              id="product-description"
+              rows="2"
+              placeholder="Необов'язково (якщо залишити порожнім, сформується з характеристик)"
+            ></textarea>
+
+            <div id="product-attributes-section" class="admin-attributes-box">
+              <p class="admin-attributes-heading">
+                Характеристики категорії (необов'язково, заповніть обидва поля категорії)
+              </p>
+
+              <div
+                class="category-attributes-group"
+                data-category-attrs="keyboard"
+              >
+                <label for="attr-switch-type">Тип перемикачів (Switch type)</label>
+                <input
+                  id="attr-switch-type"
+                  type="text"
+                  placeholder="Наприклад: Red, Blue, Brown"
+                />
+
+                <label for="attr-layout">Розкладка (Layout)</label>
+                <input
+                  id="attr-layout"
+                  type="text"
+                  placeholder="Наприклад: US, UA, ISO"
+                />
+              </div>
+
+              <div
+                class="category-attributes-group hidden"
+                data-category-attrs="mouse"
+              >
+                <label for="attr-dpi">Чутливість (DPI)</label>
+                <input
+                  id="attr-dpi"
+                  type="number"
+                  min="1"
+                  step="1"
+                  placeholder="Наприклад: 12000"
+                />
+
+                <label for="attr-connection-type">Тип підключення</label>
+                <input
+                  id="attr-connection-type"
+                  type="text"
+                  placeholder="Наприклад: Wireless, Wired"
+                />
+              </div>
+
+              <div
+                class="category-attributes-group hidden"
+                data-category-attrs="headphones"
+              >
+                <label for="attr-wireless">Тип підключення навушників</label>
+                <select id="attr-wireless">
+                  <option value="">Не вказано</option>
+                  <option value="true">Бездротові (Wireless)</option>
+                  <option value="false">Дротові (Wired)</option>
+                </select>
+
+                <label for="attr-has-microphone">Наявність мікрофона</label>
+                <select id="attr-has-microphone">
+                  <option value="">Не вказано</option>
+                  <option value="true">З мікрофоном</option>
+                  <option value="false">Без мікрофона</option>
+                </select>
+              </div>
+
+              <div
+                class="category-attributes-group hidden"
+                data-category-attrs="webcam"
+              >
+                <label for="attr-resolution">Роздільна здатність</label>
+                <input
+                  id="attr-resolution"
+                  type="text"
+                  placeholder="Наприклад: 1920x1080"
+                />
+
+                <label for="attr-frame-rate">Частота кадрів (FPS)</label>
+                <input
+                  id="attr-frame-rate"
+                  type="number"
+                  min="1"
+                  step="1"
+                  placeholder="Наприклад: 60"
+                />
+              </div>
+            </div>
+
+            <div class="admin-form-actions">
+              <button type="submit" id="product-submit">Додати товар</button>
+              <button
+                type="button"
+                id="product-cancel-edit"
+                class="secondary-button hidden"
+              >
+                Скасувати редагування
+              </button>
+            </div>
+          </form>
+
+          <p id="admin-product-message" role="status" aria-live="polite"></p>
+
+          <h3>Товари в магазині</h3>
+
+          <div id="admin-product-list"></div>
+        </div>
       </section>
 
+      <!-- ADMIN ORDERS -->
       <section id="admin-orders" class="page hidden">
         <h2>Керування замовленнями</h2>
 
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>№</th>
-                <th>Покупець</th>
-                <th>Сума</th>
-                <th>Дата</th>
-                <th>Доставка</th>
-                <th>Статус</th>
-                <th>Дія</th>
-              </tr>
-            </thead>
-            <tbody id="admin-orders-table"></tbody>
-          </table>
+        <div
+          id="admin-orders-access-notice"
+          class="admin-access-notice"
+        ></div>
+
+        <div id="admin-orders-content" class="hidden">
+          <p id="admin-orders-message" role="status" aria-live="polite"></p>
+
+          <div
+            id="admin-order-details"
+            class="admin-order-details hidden"
+            aria-live="polite"
+          ></div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Покупець</th>
+                  <th>Товари</th>
+                  <th>Сума</th>
+                  <th>Дата</th>
+                  <th>Доставка та оплата</th>
+                  <th>Статус</th>
+                  <th>Дія</th>
+                </tr>
+              </thead>
+
+              <tbody id="admin-orders-table"></tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>

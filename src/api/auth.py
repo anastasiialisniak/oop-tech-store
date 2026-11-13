@@ -1,14 +1,12 @@
-
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, EmailStr
 
+from src.api.dependencies import get_user_service
 from src.services.user_service import UserService
 from src.services.token_service import create_access_token
 
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
-
-user_service = UserService()
 
 
 class RegisterRequest(BaseModel):
@@ -23,23 +21,29 @@ class LoginRequest(BaseModel):
 
 
 @router.post("/register")
-def register(request: RegisterRequest):
+def register(
+    request: RegisterRequest,
+    service: UserService = Depends(get_user_service),
+):
     try:
-        user = user_service.register_user(
+        user = service.register_user(
             request.name,
             str(request.email),
             request.password,
         )
 
-        token = create_access_token(user_id=user.get_user_id())
+        token = create_access_token(
+            user_id=user.get_user_id(),
+            role=user.get_role(),
+        )
 
         return {
             "message": "Registration successful",
             "access_token": token,
             "token_type": "bearer",
             "user": {
-                "name": request.name,
-                "email": str(request.email),
+                "name": user.get_name(),
+                "email": user.get_email(),
                 "role": user.get_role(),
             },
         }
@@ -52,8 +56,11 @@ def register(request: RegisterRequest):
 
 
 @router.post("/login")
-def login(request: LoginRequest):
-    user = user_service.authenticate_user(
+def login(
+    request: LoginRequest,
+    service: UserService = Depends(get_user_service),
+):
+    user = service.authenticate_user(
         str(request.email),
         request.password,
     )
@@ -64,14 +71,18 @@ def login(request: LoginRequest):
             detail="Invalid email or password",
         )
 
-    token = create_access_token(user_id=user.get_user_id())
+    token = create_access_token(
+        user_id=user.get_user_id(),
+        role=user.get_role(),
+    )
 
     return {
         "message": "Login successful",
         "access_token": token,
         "token_type": "bearer",
         "user": {
-            "email": str(request.email),
+            "name": user.get_name(),
+            "email": user.get_email(),
             "role": user.get_role(),
         },
     }

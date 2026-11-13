@@ -25,6 +25,12 @@ class User(ABC):
     def get_user_id(self) -> int:
         return self.__user_id
 
+    def get_name(self) -> str:
+        return self.__name
+
+    def get_email(self) -> str:
+        return self.__email
+
 
     def get_email_domain(self) -> str:
         return self.__email.split("@")[1]

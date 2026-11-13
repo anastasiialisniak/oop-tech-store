@@ -12,6 +12,12 @@ class CartItem:
         self.__product = product
         self.__quantity = quantity
 
+    def get_product(self) -> Product:
+        return self.__product
+
+    def get_quantity(self) -> int:
+        return self.__quantity
+
     def increase_quantity(self, amount: int) -> None:
         if amount <= 0:
             raise ValueError("Amount must be positive.")
@@ -50,7 +56,7 @@ class Cart:
 
     def remove_product(self, product: Product) -> None:
         for item in self.__items:
-            if item._CartItem__product is product:
+            if item.get_product() is product:
                 self.__items.remove(item)
                 return
 
